@@ -1,0 +1,11 @@
+{
+	"settings" : {
+		"pylsp.plugins.mypy-ls.enabled" : true,
+		"pylsp.plugins.pycodestyle.enabled" : false,
+		"pylsp.plugins.flake8.enabled" : true,
+		"pylsp.configurationSources" : ["flake8"],
+		"pylsp.plugins.pyls_black.enabled" : true,
+		"pylsp.plugins.flake8.ignore" : ["W191", "E222", "W292", "F401", "E501", "W503", "E722", "E251", "E302", "E203", "E231", "E711"],
+		// "pylsp.plugins.pycodestyle.ignore" : ["W292", "W191", "E222", "E501", "F401"]
+	}
+}
