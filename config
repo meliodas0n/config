@@ -13,21 +13,16 @@ set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:monospace 8
+font pango:monospace 10
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-font pango:DejaVu Sans Mono 8
+font pango:DejaVuSans Mono Nerd Font Mono 10
 
-# class                 border  bground text    indicator child_border
-client.focused          #D1DEDE #D1DEDE #F8F8F2 #D1DEDE #D1DEDE
-client.focused_inactive #44475A #44475A #F8F8F2 #44475A   #44475A
-client.unfocused        #282A36 #282A36 #BFBFBF #282A36   #282A36
-client.urgent           #44475A #FF5555 #F8F8F2 #FF5555   #FF5555
-client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
-client.background       #F8F8F2
-
-bindsym $mod+d exec "dmenu_run -nf '#F8F8F2' -nb '#282A36' -sb '#6272A4' -sf '#F8F8F2' -fn 'monospace-10' -p 'dmenu%'"
+# start dmenu (a program launcher)
+# bindsym $mod+d exec "dmenu_run -nf '#F8F8F2' -nb '#282A36' -sb '#6272A4' -sf '#F8F8F2' -fn 'monospace-10' -p 'dmenu%'"
+bindsym $mod+d exec "rofi -modi window,drun,run -show drun -sidebar-mode -terminal termite -color-window '#000000, #000000, #000000' -color-normal '#000000, #b3e774, #000000, #b3e774, #000000' -color-active '#000000, #b3e774, #000000, #b3e774, #000000' -color-urgent '#000000, #b3e774, #000000, #b3e774, #000000'"
+bindsym $mod+Shift+d exec "rofi -modi window,drun,run -show run -sidebar-mode -terminal termite -color-window '#000000, #000000, #000000' -color-normal '#000000, #b3e774, #000000, #b3e774, #000000' -color-active '#000000, #b3e774, #000000, #b3e774, #000000' -color-urgent '#000000, #b3e774, #000000, #b3e774, #000000'"
 
 # border settings
 default_border none
@@ -65,6 +60,7 @@ bindsym $mod+Return exec alacritty
 
 # start applications
 bindsym $mod+c exec google-chrome
+bindsym $mod+p exec spotify
 
 # kill focused window
 bindsym $mod+q kill
@@ -137,8 +133,8 @@ set $ws5 "5"
 set $ws6 "6"
 set $ws7 "7"
 set $ws8 "8"
-set $ws9 "9"
-set $ws10 "10"
+set $ws9 "9:Twitch"
+set $ws10 "10:Spotify"
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
@@ -200,42 +196,46 @@ bindsym $mod+r mode "resize"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
+# bar {
+#    status_command /home/eminence/.local/bin/bumblebee-status \
+#        -m cpu memory battery datetime network_traffic bluetooth pulseaudio git \
+#        -t solarized-powerline
+#    position top
+#}
+
 bar {
-        status_command i3status
-
-  colors {
-    background #282A36
-    statusline #F8F8F2
-    separator  #44475A
-
-    focused_workspace  #44475A #44475A #F8F8F2
-    active_workspace   #282A36 #44475A #F8F8F2
-    inactive_workspace #282A36 #282A36 #BFBFBF
-    urgent_workspace   #FF5555 #FF5555 #F8F8F2
-    binding_mode       #FF5555 #FF5555 #F8F8F2
-  }
+	status_command ~/.local/bin/bumblebee-status -m network_traffic network cpu memory battery time bluetooth2 pasink pasource git \
+		-p time.format="%H:%M" -t solarized
+  position top
+  font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+  font pango:DejaVuSans Mono Nerd Font Mono 10
 }
 
+# class                 border  bground text    indicator child_border
+client.focused          #D1DEDE #D1DEDE #F8F8F2 #D1DEDE #D1DEDE
+client.focused_inactive #44475A #44475A #F8F8F2 #44475A   #44475A
+client.unfocused        #282A36 #282A36 #BFBFBF #282A36   #282A36
+client.urgent           #44475A #FF5555 #F8F8F2 #FF5555   #FF5555
+client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
+client.background       #F8F8F2
 
 # monitor config
 set $mm DP-1-0
 set $lm eDP-1
 
 # workspace for monitors
-workspace 1 output $mm
-workspace 2 output $mm
-workspace 3 output $mm
-workspace 4 output $mm
-workspace 5 output $mm
-workspace 6 output $mm
-workspace 7 output $mm
-workspace 8 output $lm
-workspace 9 output $lm
-workspace 10 output $lm
+workspace $ws1 output $mm
+workspace $ws2 output $mm
+workspace $ws3 output $mm
+workspace $ws4 output $mm
+workspace $ws5 output $mm
+workspace $ws6 output $mm
+workspace $ws7 output $mm
+workspace $ws8 output $mm
+workspace $ws9 output $lm
+workspace $ws10 output $lm
 
 # monitor layout
 exec --no-startup-id xrandr --output DP-1-0 --primary --right-of eDP-1 --mode 3840x2160 --rate 119.88
 
 # autostart applications on boot
-for_window [class='Spotify'] move container to workspace 10
-exec --no-startup-id spotify
