@@ -236,6 +236,11 @@ workspace $ws8 output $lm
 workspace $ws9 output $lm
 workspace $ws10 output $lm
 
+
+# picom conf
+exec_always --no-startup-id picom -b --config ~/.config/picom/picom.conf
+exec_always --no-startup-id devlispie
+
 # monitor layout
 exec --no-startup-id xrandr --output DP-1-0 --primary --right-of eDP-1 --mode 3840x2160 --rate 119.88
 # exec --no-startup-id ~/.config/scripts/monitor.sh
@@ -243,5 +248,12 @@ exec --no-startup-id xrandr --output DP-1-0 --primary --right-of eDP-1 --mode 38
 # autostart applications on boot
 # exec --no-startup-id i3-msg 'workspace $ws10; exec spotify; workspace $ws1'
 
-# picom conf
-exec_always --no-startup-id picom -b --config ~/.config/picom/picom.conf
+# Screenshots
+bindsym Print exec --no-startup-id maim "/home/$USER/Pictures/$(date)"
+bindsym $mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) "/home/$USER/Pictures/$(date)"
+bindsym Shift+Print exec --no-startup-id maim --select "/home/$USER/Pictures/$(date)"
+
+## Clipboard Screenshots
+bindsym Ctrl+Print exec --no-startup-id maim | xclip -selection clipboard -t image/png
+bindsym Ctrl+$mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
+bindsym Ctrl+Shift+Print exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
