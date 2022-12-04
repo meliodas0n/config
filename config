@@ -212,16 +212,17 @@ bar {
 }
 
 # class                 border  bground text    indicator child_border
-client.focused          #D1DEDE #D1DEDE #F8F8F2 #D1DEDE #D1DEDE
-client.focused_inactive #44475A #44475A #F8F8F2 #44475A   #44475A
-client.unfocused        #282A36 #282A36 #BFBFBF #282A36   #282A36
-client.urgent           #44475A #FF5555 #F8F8F2 #FF5555   #FF5555
-client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
-client.background       #F8F8F2
+# client.focused          #D1DEDE #D1DEDE #F8F8F2 #D1DEDE #D1DEDE
+# client.focused_inactive #44475A #44475A #F8F8F2 #44475A   #44475A
+# client.unfocused        #282A36 #282A36 #BFBFBF #282A36   #282A36
+# client.urgent           #44475A #FF5555 #F8F8F2 #FF5555   #FF5555
+# client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
+# client.background       #F8F8F2
 
 # monitor config
 set $mm DP-1-0
 set $lm eDP-1
+set $vm HDMI-1-0
 
 # workspace for monitors
 workspace $ws1 output $mm
@@ -229,13 +230,18 @@ workspace $ws2 output $mm
 workspace $ws3 output $mm
 workspace $ws4 output $mm
 workspace $ws5 output $mm
-workspace $ws6 output $mm
-workspace $ws7 output $mm
-workspace $ws8 output $mm
+workspace $ws6 output $vm
+workspace $ws7 output $vm
+workspace $ws8 output $lm
 workspace $ws9 output $lm
 workspace $ws10 output $lm
 
 # monitor layout
 exec --no-startup-id xrandr --output DP-1-0 --primary --right-of eDP-1 --mode 3840x2160 --rate 119.88
+# exec --no-startup-id ~/.config/scripts/monitor.sh
 
 # autostart applications on boot
+# exec --no-startup-id i3-msg 'workspace $ws10; exec spotify; workspace $ws1'
+
+# picom conf
+exec_always --no-startup-id picom -b --config ~/.config/picom/picom.conf
