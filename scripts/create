@@ -1,0 +1,19 @@
+#!/usr/bin/python3
+
+import os
+
+PATH = os.getcwd()
+
+try:
+  no_of_files = int(input('Enter number of files : '))
+  file_extension = input('Enter the File extension : ')
+  # file_names = [input(f"Enter the file name {i + 1} : ") for i in range(no_of_files)]
+  file_names = [i for i in input('Enter the file names with space separated : ').split()]
+except Exception as e:
+  print(e)
+
+for i in file_names:
+  file = f'{i}.{file_extension}'
+  with open(os.path.join(PATH, file), 'w') as f:
+    pass
+print('success')

@@ -10,10 +10,10 @@ call plug#begin()
     Plug 'arcticicestudio/nord-vim'
     Plug 'morhetz/gruvbox'
     Plug 'jiangmiao/auto-pairs'
-    Plug 'davidhalter/jedi-vim'
+    " Plug 'davidhalter/jedi-vim'
     Plug 'wsdjeg/flygrep.vim'
     Plug 'majutsushi/tagbar'
-    Plug 'Valloric/YouCompleteMe'
+    " Plug 'Valloric/YouCompleteMe'
     Plug 'arcticicestudio/nord-vim'
     Plug 'sheerun/vim-polyglot'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': 'TSUpdate'}
@@ -32,8 +32,8 @@ let maplocalleader="\\"
 
 syntax on
 set termguicolors
-"let g:everforest_background = 'hard'
-"let g:everforest_better_performance = 1
+let g:everforest_background = 'hard'
+let g:everforest_better_performance = 1
 colorscheme everforest 
 set background=dark
 
