@@ -20,6 +20,8 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/TensorRT-8.5.1.7/lib
 export PATH=~/.npm-global/bin:$PATH
 export PATH=$HOME/.cargo/bin:$PATH
 export PATH=/root/.cargo/bin:$PATH
+export PKG_CONFIG_PATH=/usr/share/pkgconfig:$PKG_CONFIG_PATH
+export PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig:$PKG_CONFIG_PATH
 
 # my aliases
 alias g=g++
