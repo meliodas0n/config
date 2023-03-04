@@ -1,3 +1,5 @@
 [user]
 	email = mrunalnarayana@gmail.com
 	name = meliodas0n
+[init]
+	defaultBranch = master
