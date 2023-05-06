@@ -70,8 +70,8 @@ let g:everforest_better_performance = 1
 let g:onedark_termcolors=256
 let g:sierra_Twilight = 1
 set termguicolors
-" set background=dark
-colorscheme catppuccin-mocha 
+set background=dark
+colorscheme everforest 
 
 if &term == "alacritty"
   let &term = "xterm-256color"
