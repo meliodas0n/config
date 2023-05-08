@@ -47,7 +47,7 @@ let g:user_emmet_leader_key=','
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 let g:airline_theme="apprentice"
-" let g:rainbow_active = 1 
+let g:rainbow_active = 1 
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
 let g:indetLine_setColors = 0
@@ -57,10 +57,10 @@ let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 let mapleader=" "
 let maplocalleader="\\"
 
-" nnoremap <leader>n :NERDTreeFocus<CR>
-" nnoremap <C-n> :NERDTree<CR>
-" nnoremap <C-t> :NERDTreeToggle<CR>
-" nnoremap <C-f> :NERDTreeFind<CR>
+"nnoremap <leader>n :NERDTreeFocus<CR>
+"nnoremap <C-n> :NERDTree<CR>
+"nnoremap <C-t> :NERDTreeToggle<CR>
+"nnoremap <C-f> :NERDTreeFind<CR>
 inoremap <c-b> <Esc>:NERDTreeToggle<cr>
 nnoremap <c-b> <Esc>:NERDTreeToggle<cr>
 
@@ -71,7 +71,7 @@ let g:onedark_termcolors=256
 let g:sierra_Twilight = 1
 set termguicolors
 set background=dark
-colorscheme everforest 
+colorscheme nightfox
 
 if &term == "alacritty"
   let &term = "xterm-256color"
@@ -80,8 +80,8 @@ endif
 " Indentation Hopefully
 autocmd BufRead * DetectIndent
 filetype plugin indent on
-set expandtab shiftwidth=4 softtabstop=4
-set tabstop=4
+set expandtab shiftwidth=2 softtabstop=2
+set tabstop=2
 
 set nocompatible
 filetype plugin indent on
