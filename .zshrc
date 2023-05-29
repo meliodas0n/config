@@ -29,7 +29,7 @@ alias cpp="cp $HOME/.config/templates/template_cpp.cpp "
 alias ga="git add ."
 alias gc="git commit -m"
 alias gp="git push"
-alias vim="lvim"
+alias vim="nvim"
 
 
 # Path to your oh-my-zsh installation.
