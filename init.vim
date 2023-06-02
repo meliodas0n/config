@@ -80,6 +80,7 @@ endif
 " Indentation Hopefully
 autocmd BufRead * DetectIndent
 filetype plugin indent on
+" do :verbose set tabstop? go to file change 4 -> 2
 set expandtab shiftwidth=2 softtabstop=2
 set tabstop=2
 
