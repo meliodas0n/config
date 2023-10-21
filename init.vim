@@ -102,7 +102,6 @@ set expandtab shiftwidth=2 softtabstop=2
 set tabstop=2
 
 set nocompatible
-filetype plugin indent on
 set encoding=UTF-8
 set autoindent
 set number
