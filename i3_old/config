@@ -4,7 +4,10 @@
 set $mod Mod4
 
 # monitor resolution setup
-exec_always --no-startup-id xrandr --output DP-0 --primary --mode 3840x2160 --right-of eDP-1-1 --rate 119.88 --output HDMI-0 --right-of DP-0 --mode 1920x1080 --rate 144.00
+# exec_always --no-startup-id xrandr --output DP-0 --primary --mode 3840x2160 --right-of eDP-1-1 --rate 119.88 --output HDMI-0 --right-of DP-0 --mode 1920x1080 --rate 144.00
+# exec_always --no-startup-id xrandr --output DP-0 --primary --mode 1920x1080 --right-of eDP-1-1 --rate 144.00 --output eDP-1-1 --mode 1920x1080 --left-of DP-0 --rate 144.00
+
+exec_always --no-startup-id ~/.monitor
 
 # set default desktop layout (default is tiling)
 # workspace_layout tabbed <stacking|tabbed>
@@ -147,14 +150,13 @@ bindsym $mod+Shift+5 move container to workspace $ws5; workspace $ws5
 
 # Monitor Variables
 set $mm DP-0
-set $vm HDMI-0
-set $lm eDP-1-1
+set $lm HDMI-0 
 
 # Workspace for each Monitors
 workspace $ws1 output $mm
 workspace $ws2 output $mm
 workspace $ws3 output $mm
-workspace $ws4 output $vm
+workspace $ws4 output $lm
 workspace $ws5 output $lm
 
 # Open specific applications in floating mode

@@ -68,7 +68,7 @@ window:
   #
   # Window opacity as a floating point number from `0.0` to `1.0`.
   # The value `0.0` is completely transparent and `1.0` is opaque.
-  opacity: 0.5
+  opacity: 0.0
 
   # Startup Mode (changes require restart)
   #
@@ -119,10 +119,10 @@ font:
     #   - (macOS) Menlo
     #   - (Linux/BSD) monospace
     #   - (Windows) Consolas
-    family: DejaVuSansM Nerd Font Mono 
+    family: Monaspace Krypton 
 
     # The `style` can be specified to pick a specific face.
-    style: Regular
+    style: Regular 
 
   # Bold font face
   #bold:
@@ -158,7 +158,7 @@ font:
     #style: Bold Italic
 
   # Point size
-  size: 9.0
+  size: 11.0
 
   # Offset is the extra space around each character. `offset.y` can be thought
   # of as modifying the line spacing, and `offset.x` as modifying the letter
@@ -899,30 +899,3 @@ font:
 
   # Highlight window damage information.
   #highlight_damage: false
-# BEGIN ACE
-colors:
-  primary:
-    background: '#000000'
-    foreground: '#f1f1f1'
-  cursor:
-    text:       '#000000'
-    cursor:     '#f1f1f1'
-  normal:
-    black:      '#000000'
-    red:        '#A8A8A8'
-    green:      '#B9B9B9'
-    yellow:     '#C7C7C7'
-    blue:       '#D8D8D8'
-    magenta:    '#E4E4E4'
-    cyan:       '#ECECEC'
-    white:      '#f1f1f1'
-  bright:
-    black:      '#a8a8a8'
-    red:        '#A8A8A8'
-    green:      '#B9B9B9'
-    yellow:     '#C7C7C7'
-    blue:       '#D8D8D8'
-    magenta:    '#E4E4E4'
-    cyan:       '#ECECEC'
-    white:      '#f1f1f1'
-# END ACE
