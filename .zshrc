@@ -39,6 +39,8 @@ alias ga="git add ."
 alias gc="git commit -m"
 alias gp="git push"
 alias activate="source .venv/bin/activate"
+alias vim="nvim"
+alias psql="sudo -i -u postgres psql -d meliodas"
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
