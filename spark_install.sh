@@ -21,11 +21,13 @@ else
   wget https://dlcdn.apache.org/spark/spark-3.5.0/spark-3.5.0-bin-hadoop3.tgz -O ~/Downloads/spark.tgz
   echo "SPARK DOWNLOAD COMPLETED"
 fi
+
 echo "DOWNLOADED APACHE SPARK TO ~/Downloads"
 echo "CHANGING TO DOWNLOADS DIRECTORY"
 cd ~/Downloads
 echo "UNTAR SPARK FOLDER"
 tar -xvzf spark.tgz
+
 if [ -d /opt ]; then
   echo "/opt EXSISTS"
   sudo mv spark-3.5.0-bin-hadoop3 /opt/spark
@@ -39,6 +41,7 @@ else
   sudo mv spark-3.5.0-bin-hadoop3 /opt/spark
   echo "MOVED SPARK TO /opt/spark"
 fi
+
 echo "INSTALLED SPARK"
 echo "INSTALLING PYTHON SPARK API *pyspark*"
 pip3 install pyspark
