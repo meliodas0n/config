@@ -1,9 +1,18 @@
 #!/usr/bin/bash
-set e
+# set e
+
+distro=$1
+echo "Distro : $distro"
 
 echo "SPARK INSTALL STARTED"
 echo "INSTALL JAVA & SCALA"
-sudo apt-get install openjdk-22-jdk openjdk-22-jre scala -y
+if [ $distro = "ubuntu" ]
+then
+  sudo apt-get install openjdk-22-jdk openjdk-22-jre scala -y
+else
+  sudo pacman -Sy jre-openjdk jdk-openjdk
+  yay -Sy scala
+fi
 echo "JAVA & SCALA INSTALL COMPLETED"
 echo "DOWNLOAD APACHE SPARK"
 
