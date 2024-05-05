@@ -9,3 +9,5 @@ chmod u+x nvim.appimage
 # Optional: exposing nvim globally.
 sudo mv squashfs-root /
 sudo ln -s /squashfs-root/AppRun /usr/bin/nvim
+
+rm nvim.appimage
