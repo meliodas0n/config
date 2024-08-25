@@ -24,7 +24,7 @@ echo "DOWNLOAD APACHE SPARK"
 if [ -d ~/Downloads ]; then
   echo "DOWNLOADS DIRECTORY EXISTS"
   echo "DOWNLOADING APACHE SPARK"
-  wget https://dlcdn.apache.org/spark/spark-3.5.1/spark-3.5.1-bin-hadoop3.tgz -O ~/Downloads/spark.tgz
+  wget https://dlcdn.apache.org/spark/spark-3.5.2/spark-3.5.2-bin-hadoop3.tgz -O ~/Downloads/spark.tgz
   echo "SPARK DOWNLOAD COMPLETED"
 else
   echo "DOWNLOADS DIRECTORY DOES NOT EXSIST"
@@ -32,7 +32,7 @@ else
   mkdir ~/Downloads
   echo "CREATED DOWNLODS DIRECTORY"
   echo "DOWNLOADING APACHE SPARK"
-  wget https://dlcdn.apache.org/spark/spark-3.5.1/spark-3.5.1-bin-hadoop3.tgz -O ~/Downloads/spark.tgz
+  wget https://dlcdn.apache.org/spark/spark-3.5.2/spark-3.5.2-bin-hadoop3.tgz -O ~/Downloads/spark.tgz
   echo "SPARK DOWNLOAD COMPLETED"
 fi
 
@@ -44,7 +44,7 @@ tar -xvzf spark.tgz
 
 if [ -d /opt ]; then
   echo "/opt EXSISTS"
-  sudo mv spark-3.5.1-bin-hadoop3 /opt/spark
+  sudo mv spark-3.5.2-bin-hadoop3 /opt/spark
   echo "MOVED SPARK TO /opt/spark"
 else
   echo "/opt DOES NOT EXISTS"
@@ -52,7 +52,7 @@ else
   sudo mkdir -p /opt
   echo "/opt CREATED"
   echo "MOVING SPARK TO /opt"
-  sudo mv spark-3.5.1-bin-hadoop3 /opt/spark
+  sudo mv spark-3.5.2-bin-hadoop3 /opt/spark
   echo "MOVED SPARK TO /opt/spark"
 fi
 
