@@ -88,7 +88,10 @@ cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys && chmod 600 ~/.ssh/authorized_k
   </property>
 </configuration>
 
+# start namenode and yarn resource manager
 start-dfs.sh && start-yarn.sh
+# check if namenode and resource manager are on or off
+jps
 # hadoop -> http://localhost:9870
 # yarn -> http://localhost:8088
 
@@ -98,3 +101,23 @@ tar -xvf apache-hive-4.0.0-bin.tar.gz && rm apache-hive-4.0.0-bin.tar.gz && mv a
 
 export HIVE_HOME=/opt/hive
 export PATH=$HIVE_HOME/bin:$PATH
+
+# $HIVE_HOME/hive-site.xml
+<configuration>
+  <property>
+    <name>javax.jdo.option.ConnectionURL</name>
+    <value>jdbc:derby:memory:hive_db;create=true</value>
+  </property>
+  <property>
+    <name>javax.jdo.option.ConnectionDriverName</name>
+    <value>org.apache.derby.jdbc.EmbeddedDriver</value>
+  </property>
+  <property>
+    <name>javax.jdo.option.ConnectionUserName</name>
+    <value>sa</value>
+  </property>
+  <property>
+    <name>javax.jdo.option.ConnectionPassword</name>
+    <value></value>
+  </property>
+</configuration>
