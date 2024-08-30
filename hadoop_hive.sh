@@ -121,3 +121,22 @@ export PATH=$HIVE_HOME/bin:$PATH
     <value></value>
   </property>
 </configuration>
+
+
+# Format the namenode
+hdfs namenode -format
+
+nohup hive --service metastore &
+nohup hive --service hiveserver2 &
+
+
+
+http://localhost:9870/
+http://localhost:8088/cluster
+
+
+# derby
+wget https://archive.apache.org/dist/db/derby/db-derby-10.17.1.0/db-derby-10.17.1.0-bin.tar.gz
+
+
+schematool -initSchema -dbType derby
