@@ -122,21 +122,87 @@ export PATH=$HIVE_HOME/bin:$PATH
   </property>
 </configuration>
 
-
 # Format the namenode
 hdfs namenode -format
-
 nohup hive --service metastore &
 nohup hive --service hiveserver2 &
-
-
-
 http://localhost:9870/
 http://localhost:8088/cluster
-
-
 # derby
-wget https://archive.apache.org/dist/db/derby/db-derby-10.17.1.0/db-derby-10.17.1.0-bin.tar.gz
-
-
+# not working wget https://archive.apache.org/dist/db/derby/db-derby-10.17.1.0/db-derby-10.17.1.0-bin.tar.gz
 schematool -initSchema -dbType derby
+wget https://archive.apache.org/dist/db/derby/db-derby-10.14.2.0/db-derby-10.14.2.0-bin.tar.gz 
+
+
+# Start Hive Metastore
+hive --service metastore &
+
+# Start HiveServer2
+hive --service hiveserver2 &
+
+# Start Beeline and connect to HiveServer2
+beeline
+!connect jdbc:hive2://localhost:10000 default
+
+# SQL Commands in Beeline
+CREATE DATABASE test_db;
+USE test_db;
+
+CREATE TABLE employee (
+    id INT,
+    name STRING,
+    age INT,
+    department STRING
+)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ','
+STORED AS TEXTFILE;
+
+INSERT INTO employee VALUES (1, 'John Doe', 30, 'Engineering');
+INSERT INTO employee VALUES (2, 'Jane Smith', 25, 'Marketing');
+INSERT INTO employee VALUES (3, 'Mike Johnson', 35, 'Sales');
+
+SELECT * FROM employee;
+
+
+
+sudo apt-get update
+sudo apt-get install postgresql postgresql-contrib
+sudo -i -u postgres
+createuser hiveuser -P
+createdb -O hiveuser metastore_db
+sudo nano /etc/postgresql/12/main/pg_hba.conf
+local   all             hiveuser                                md5
+sudo systemctl restart postgresql
+cp postgresql-42.x.x.jar /path/to/hive/lib/
+<property>
+    <name>javax.jdo.option.ConnectionURL</name>
+    <value>jdbc:postgresql://localhost:5432/metastore_db</value>
+    <description>JDBC connect string for a JDBC metastore</description>
+</property>
+
+<property>
+    <name>javax.jdo.option.ConnectionDriverName</name>
+    <value>org.postgresql.Driver</value>
+    <description>Driver class name for a JDBC metastore</description>
+</property>
+
+<property>
+    <name>javax.jdo.option.ConnectionUserName</name>
+    <value>hiveuser</value>
+    <description>Username to use against metastore database</description>
+</property>
+
+<property>
+    <name>javax.jdo.option.ConnectionPassword</name>
+    <value>your_password</value>
+    <description>Password to use against metastore database</description>
+</property>
+
+<property>
+    <name>datanucleus.schema.autoCreateAll</name>
+    <value>true</value>
+    <description>Auto-create the schema on startup</description>
+</property>
+schematool -dbType postgres -initSchema
+hive --service metastore
