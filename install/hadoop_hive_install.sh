@@ -206,3 +206,56 @@ cp postgresql-42.x.x.jar /path/to/hive/lib/
 </property>
 schematool -dbType postgres -initSchema
 hive --service metastore
+
+
+<configuration>
+    <!-- Default block size for HDFS files -->
+    <property>
+        <name>dfs.blocksize</name>
+        <value>134217728</value> <!-- 128 MB -->
+    </property>
+    <!-- Default replication factor for HDFS files -->
+    <property>
+        <name>dfs.replication</name>
+        <value>1</value> <!-- Set to 1 for single-node cluster -->
+    </property>
+    <!-- Directories where the NameNode stores metadata and edits -->
+    <property>
+        <name>dfs.namenode.name.dir</name>
+        <value>file:///usr/local/hadoop/hdfs/namenode</value>
+    </property>
+    <!-- Directories where the DataNode stores blocks -->
+    <property>
+        <name>dfs.datanode.data.dir</name>
+        <value>file:///usr/local/hadoop/hdfs/datanode</value>
+    </property>
+    <!-- Namenode-specific directories for storing secondary Namenode checkpoints -->
+    <property>
+        <name>dfs.namenode.checkpoint.dir</name>
+        <value>file:///usr/local/hadoop/hdfs/namesecondary</value>
+    </property>
+    <!-- Namenode checkpoint interval (seconds) -->
+    <property>
+        <name>dfs.namenode.checkpoint.period</name>
+        <value>3600</value> <!-- Every hour -->
+    </property>
+    <!-- Namenode checkpoint size threshold -->
+    <property>
+        <name>dfs.namenode.checkpoint.txns</name>
+        <value>1000000</value> <!-- 1 million transactions -->
+    </property>
+    <!-- Enable safe mode exit threshold (0.9 means 90% of blocks must be available) -->
+    <property>
+        <name>dfs.namenode.safemode.threshold-pct</name>
+        <value>0.9</value>
+    </property>
+    <!-- The secondary namenode will perform a checkpoint every 3600 seconds -->
+    <property>
+        <name>dfs.namenode.checkpoint.period</name>
+        <value>3600</value>
+    </property>
+</configuration>
+
+sudo lsof -i :<port_number>
+
+hdfs dfs -df -h
