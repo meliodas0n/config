@@ -20,11 +20,6 @@ export SPARK_HOME=/opt/spark
 export PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 export HADOOP_HOME=/opt/hadoop
-export HADOOP_INSTALL=$HADOOP_HOME
-export HADOOP_MAPRED_HOME=$HADOOP_HOME
-export HADOOP_COMMON_HOME=$HADOOP_HOME
-export HADOOP_HDFS_HOME=$HADOOP_HOME
-export HADOOP_YARN_HOME=$HADOOP_HOME
 export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOME/lib/native
 export PATH=$PATH:$HADOOP_HOME/sbin:$HADOOP_HOME/bin
 export HADOOP_OPTS="-Djava.library.path=$HADOOP_HOME/lib/native"
@@ -33,10 +28,7 @@ export HIVE_CONF_DIR=$HIVE_HOME/conf
 export PATH=$HIVE_HOME/bin:$PATH
 export CLASSPATH=$CLASSPATH:$HADOOP_HOME/lib/*:.
 export CLASSPATH=$CLASSPATH:$HIVE_HOME/lib/*:.
-export DERBY_HOME=/opt/derby
-export PATH=$DERBY_HOME/bin:$PATH
-export CLASSPATH=$CLASSPATH:$DERBY_HOME/lib/derby.jar:$DERBY_HOME/lib/derbytools.jar:$DERBY_HOME/lib/derbyclient.jar
-export HIVE_CLASSPATH=$HIVE_CLASSPATH:$HIVE_HOME/lib/derby.jar:$HIVE_HOME/lib/derbyclient.jar
+export CLASSPATH=$CLASSPATH:$SPARK_HOME/jars/*:.
 
 # my aliases
 alias g=g++
