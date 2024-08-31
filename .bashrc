@@ -56,7 +56,7 @@ alias gc="git commit -m"
 alias gp="git push"
 alias activate="source .venv/bin/activate"
 alias vim="nvim"
-alias psql="sudo -i -u postgres psql -d meliodas"
+# alias psql="sudo -i -u postgres psql -d meliodas"
 
 # If not running interactively, don't do anything
 case $- in
