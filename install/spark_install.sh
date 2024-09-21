@@ -8,7 +8,7 @@ echo "SPARK INSTALL STARTED"
 echo "INSTALL JAVA & SCALA"
 if [ $distro = "ubuntu" ]
 then
-  sudo apt-get install openjdk-21-jdk openjdk-21-jre scala -y
+  sudo apt-get install openjdk-8-jdk openjdk-8-jre scala -y
 elif [ $distro = "arch" ]
 then
   sudo pacman -Sy jre-openjdk jdk-openjdk
