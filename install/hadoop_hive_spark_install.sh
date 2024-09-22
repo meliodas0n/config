@@ -59,8 +59,7 @@ check_and_install_scala() {
 add_hadoop_core_site_xml() {
   echo "Adding core-site.xml for hadoop"
   if [ -f $HADOOP_CONF/core-site.xml ]; then rm -rf $HADOOP_CONF/core-site.xml; fi
-  echo '
-<?xml version="1.0" encoding="UTF-8"?>
+  echo '<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
 <configuration>
   <property>
@@ -83,15 +82,13 @@ add_hadoop_core_site_xml() {
     <name>yarn.nodemanager.aux-services.mapreduce_shuffle.class</name>
     <value>org.apache.hadoop.mapred.ShuffleHandler</value>
   </property>
-</configuration>
-' > $HADOOP_CONF/core-site.xml
+</configuration>' > $HADOOP_CONF/core-site.xml
 }
 
 add_hadoop_yarn_site_xml() {
   echo "Adding yarn-site.xml for hadoop"
   if [ -f $HADOOP_CONF/yarn-site.xml ]; then rm -rf $HADOOP_CONF/yarn-site.xml; fi
-  echo '
-<?xml version="1.0"?>
+  echo '<?xml version="1.0"?>
 <configuration>
   <property>
     <name>yarn.resourcemanager.hostname</name>
@@ -121,15 +118,13 @@ add_hadoop_yarn_site_xml() {
     <name>yarn.nodemanager.aux-services.mapreduce_shuffle.class</name>
     <value>org.apache.hadoop.mapred.ShuffleHandler</value>
   </property>
-</configuration>
-' > $HADOOP_CONF/yarn-site.xml
+</configuration>' > $HADOOP_CONF/yarn-site.xml
 }
 
 add_hadoop_hdfs_site_xml() {
   echo "Adding hdfs-site.xml for hadoop"
   if [ -f $HADOOP_CONF/hdfs-site.xml ]; then rm -rf $HADOOP_CONF/hive-site.xml; fi
-  echo '
-<?xml version="1.0" encoding="UTF-8"?>
+  echo '<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
 <configuration>
   <!-- Default block size for HDFS files -->
@@ -177,8 +172,7 @@ add_hadoop_hdfs_site_xml() {
     <name>dfs.namenode.checkpoint.period</name>
     <value>3600</value>
   </property>
-</configuration>
-' > $HADOOP_CONF/hdfs-site.xml
+</configuration>' > $HADOOP_CONF/hdfs-site.xml
 }
 
 # TODO: automate this function
@@ -234,8 +228,7 @@ postgres_jar_install() {
 add_hive_hive_site_xml() {
   echo "Adding hive-site.xml for hive"
   if [ -f $HIVE_HOME/conf/hive-site.xml ]; then rm -rf $HIVE_HOME/conf/hive-site.xml; fi
-  echo '
-<?xml version="1.0"?>
+  echo '<?xml version="1.0"?>
 <configuration>
 <property>
     <name>javax.jdo.option.ConnectionURL</name>
@@ -262,8 +255,7 @@ add_hive_hive_site_xml() {
     <value>true</value>
     <description>Auto-create the schema on startup</description>
   </property>
-</configuration>
-' > $HIVE_HOME/conf/hive-site.xml
+</configuration>' > $HIVE_HOME/conf/hive-site.xml
 }
 
 hive_install() {
