@@ -84,7 +84,7 @@ add_hadoop_core_site_xml() {
     <value>org.apache.hadoop.mapred.ShuffleHandler</value>
   </property>
 </configuration>
-' >> $HADOOP_CONF/core-site.xml
+' > $HADOOP_CONF/core-site.xml
 }
 
 add_hadoop_yarn_site_xml() {
@@ -122,7 +122,7 @@ add_hadoop_yarn_site_xml() {
     <value>org.apache.hadoop.mapred.ShuffleHandler</value>
   </property>
 </configuration>
-' >> $HADOOP_CONF/yarn-site.xml
+' > $HADOOP_CONF/yarn-site.xml
 }
 
 add_hadoop_hdfs_site_xml() {
@@ -178,7 +178,7 @@ add_hadoop_hdfs_site_xml() {
     <value>3600</value>
   </property>
 </configuration>
-' >> $HADOOP_CONF/hdfs-site.xml
+' > $HADOOP_CONF/hdfs-site.xml
 }
 
 # TODO: automate this function
@@ -263,7 +263,7 @@ add_hive_hive_site_xml() {
     <description>Auto-create the schema on startup</description>
   </property>
 </configuration>
-' >> $HIVE_HOME/conf/hive-site.xml
+' > $HIVE_HOME/conf/hive-site.xml
 }
 
 hive_install() {
