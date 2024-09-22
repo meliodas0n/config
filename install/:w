@@ -1,0 +1,35 @@
+#!/usr/bin/bash
+
+set -e
+
+# first check if java version - if its not 8 - uninstall/purge java and get 8
+
+check_and_install_java() {
+  echo "Java check and installation started"
+  java_version=$(java -version 2>&1)
+  if [[ $java_version =~ ([0-9]+\.[0-9]+) ]]; then version=${BASH_REMATCH[1]}
+    if (( $(echo "$version == 1.8" | bc -l) )); then
+      echo "Java version is $version, which is valid for hadoop"
+    else
+      echo "Java version is $version, which is not valid for hadoop"
+      echo "Removing existing Java"
+      sudo apt remove --purge java* -y
+      echo "Installing Java 8"
+      sudo apt-get install openjdk-8-jdk openjdk-8-jre -y
+    fi
+  else 
+    "Java version not identified, so installing Java 8"
+    sudo apt-get install openjdk-8-jdk openjdk-8-jre -y
+  fi
+  echo "Java check and installation completed"
+}
+
+check_and_install_scala() {
+  echo "Scala check and installation started"
+  scala_version=$(scala -version 2>&1)
+  if [[ $scala_version =~ ([0-9]+\.[0-9]+) ]]; then version=${BASH_REMATCH[1]}
+    echo $version
+}
+
+# check_and_install_java
+check_and_install_scala
