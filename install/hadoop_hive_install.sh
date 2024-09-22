@@ -7,7 +7,7 @@ sudo apt-get install ssh
 
 sudo adduser hadoop && su - hadoop
 ssh-keygen -t rsa
-cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys   
+cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 chmod 640 ~/.ssh/authorized_keys
 ssh localhost
 
@@ -27,7 +27,6 @@ export PATH=$PATH:$HADOOP_HOME/sbin:$HADOOP_HOME/bin
 export HADOOP_OPTS="-Djava.library.path=$HADOOP_HOME/lib/native"
 
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 >> /opt/hadoop/etc/hadoop/hadoop-env.sh
-
 sudo apt-get update && sudo apt full-upgrade && sudo apt install openssh-client openssh-server
 ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa
 cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys && chmod 600 ~/.ssh/authorized_keys && chmod 700 ~/.ssh
@@ -175,85 +174,84 @@ sudo nano /etc/postgresql/12/main/pg_hba.conf
 local   all             hiveuser                                md5
 sudo systemctl restart postgresql
 cp postgresql-42.x.x.jar /path/to/hive/lib/
-<property>
+
+<configuration>
+  <property>
     <name>javax.jdo.option.ConnectionURL</name>
     <value>jdbc:postgresql://localhost:5432/metastore_db</value>
     <description>JDBC connect string for a JDBC metastore</description>
-</property>
-
-<property>
+  </property>
+  <property>
     <name>javax.jdo.option.ConnectionDriverName</name>
     <value>org.postgresql.Driver</value>
     <description>Driver class name for a JDBC metastore</description>
-</property>
-
-<property>
+  </property>
+  <property>
     <name>javax.jdo.option.ConnectionUserName</name>
     <value>hiveuser</value>
     <description>Username to use against metastore database</description>
-</property>
-
-<property>
+  </property>
+  <property>
     <name>javax.jdo.option.ConnectionPassword</name>
     <value>your_password</value>
     <description>Password to use against metastore database</description>
-</property>
-
-<property>
+  </property>
+  <property>
     <name>datanucleus.schema.autoCreateAll</name>
     <value>true</value>
     <description>Auto-create the schema on startup</description>
-</property>
+  </property>
+</configuration>
 schematool -dbType postgres -initSchema
 hive --service metastore
 
 
 <configuration>
-    <!-- Default block size for HDFS files -->
-    <property>
-        <name>dfs.blocksize</name>
-        <value>134217728</value> <!-- 128 MB -->
-    </property>
-    <!-- Default replication factor for HDFS files -->
-    <property>
-        <name>dfs.replication</name>
-        <value>1</value> <!-- Set to 1 for single-node cluster -->
-    </property>
-    <!-- Directories where the NameNode stores metadata and edits -->
-    <property>
-        <name>dfs.namenode.name.dir</name>
-        <value>file:///usr/local/hadoop/hdfs/namenode</value>
-    </property>
-    <!-- Directories where the DataNode stores blocks -->
-    <property>
-        <name>dfs.datanode.data.dir</name>
-        <value>file:///usr/local/hadoop/hdfs/datanode</value>
-    </property>
-    <!-- Namenode-specific directories for storing secondary Namenode checkpoints -->
-    <property>
-        <name>dfs.namenode.checkpoint.dir</name>
-        <value>file:///usr/local/hadoop/hdfs/namesecondary</value>
-    </property>
-    <!-- Namenode checkpoint interval (seconds) -->
-    <property>
-        <name>dfs.namenode.checkpoint.period</name>
-        <value>3600</value> <!-- Every hour -->
-    </property>
-    <!-- Namenode checkpoint size threshold -->
-    <property>
-        <name>dfs.namenode.checkpoint.txns</name>
-        <value>1000000</value> <!-- 1 million transactions -->
-    </property>
-    <!-- Enable safe mode exit threshold (0.9 means 90% of blocks must be available) -->
-    <property>
-        <name>dfs.namenode.safemode.threshold-pct</name>
-        <value>0.9</value>
-    </property>
-    <!-- The secondary namenode will perform a checkpoint every 3600 seconds -->
-    <property>
-        <name>dfs.namenode.checkpoint.period</name>
-        <value>3600</value>
-    </property>
+  <!-- Default block size for HDFS files -->
+  <property>
+    <name>dfs.blocksize</name>
+    <value>134217728</value> <!-- 128 MB -->
+  </property>
+  <!-- Default replication factor for HDFS files -->
+  <property>
+    <name>dfs.replication</name>
+    <value>1</value> <!-- Set to 1 for single-node cluster -->
+  </property>
+  <!-- Directories where the NameNode stores metadata and edits -->
+  <property>
+    <name>dfs.namenode.name.dir</name>
+    <value>file:///usr/local/hadoop/hdfs/namenode</value>
+  </property>
+  <!-- Directories where the DataNode stores blocks -->
+  <property>
+    <name>dfs.datanode.data.dir</name>
+    <value>file:///usr/local/hadoop/hdfs/datanode</value>
+  </property>
+  <!-- Namenode-specific directories for storing secondary Namenode checkpoints -->
+  <property>
+    <name>dfs.namenode.checkpoint.dir</name>
+    <value>file:///usr/local/hadoop/hdfs/namesecondary</value>
+  </property>
+  <!-- Namenode checkpoint interval (seconds) -->
+  <property>
+    <name>dfs.namenode.checkpoint.period</name>
+    <value>3600</value> <!-- Every hour -->
+  </property>
+  <!-- Namenode checkpoint size threshold -->
+  <property>
+    <name>dfs.namenode.checkpoint.txns</name>
+    <value>1000000</value> <!-- 1 million transactions -->
+  </property>
+  <!-- Enable safe mode exit threshold (0.9 means 90% of blocks must be available) -->
+  <property>
+    <name>dfs.namenode.safemode.threshold-pct</name>
+    <value>0.9</value>
+  </property>
+  <!-- The secondary namenode will perform a checkpoint every 3600 seconds -->
+  <property>
+    <name>dfs.namenode.checkpoint.period</name>
+    <value>3600</value>
+  </property>
 </configuration>
 
 sudo lsof -i :<port_number>
