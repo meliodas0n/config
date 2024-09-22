@@ -267,7 +267,7 @@ hive_install() {
   add_hive_hive_site_xml
   add_hadoop_hdfs_site_xml
   sudo chmod 7777 -R /opt
-  schematool -dbType postgres -initschema
+  schematool -dbType postgres -initSchema
   nohup hive --service metastore >> /opt/hive_logs/metastore.log &
   nohup hive --service hiveserver2 >> /opt/hive_logs/hiveserver2.log &
 }
