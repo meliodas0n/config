@@ -20,3 +20,6 @@ else
 	sudo ln -s /opt/nvim/AppRun /usr/bin/nvim
 	rm nvim.appimage
 fi
+
+git clone git@github.com:meliodas0n/astrovim ~/.config/nvim
+nvim
