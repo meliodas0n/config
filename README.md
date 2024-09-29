@@ -15,4 +15,4 @@
 11. walls -> wallpapers that I like to use most(I like them so fuck off if you don't).
 
 ### Most Importantly the Unsung hero of my setups **autosetup.sh**
-#### This is supposed to install zero -> hyprland on ARCH and hyprland on UBUNUT
+#### This is supposed to install zero -> hyprland on ARCH and hyprland on UBUNTU
