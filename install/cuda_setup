@@ -19,6 +19,12 @@ cudnn_install() {
   sudo apt-get -y install cudnn-cuda-12
 }
 
+package_install() {
+  echo "Started Installing Libraries"
+  sudo apt-get install libfreeimage3 libfreeimage-dev
+  echo "Completed Install Libraries"
+}
+
 verify_cudnn_install() {
   cp /usr/src/cudnn_samples_v9/ $HOME/Downloads
   cd $HOME/Downloads/cudnn_samples_v9/mnistCUDNN && make clean && make
@@ -39,6 +45,7 @@ if [ $# -eq 0 ]; then
   echo "Starting CUDA/CUDNN Setup"
   cuda_install
   cudnn_install
+  package_install
   verify_cudnn_install
   echo "Completed CUDA/CUDNN Setup"
 else
