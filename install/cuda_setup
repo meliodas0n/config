@@ -26,10 +26,10 @@ package_install() {
 }
 
 verify_cudnn_install() {
-  cp /usr/src/cudnn_samples_v9/ $HOME/Downloads
+  cp -r /usr/src/cudnn_samples_v9/ $HOME/Downloads
   cd $HOME/Downloads/cudnn_samples_v9/mnistCUDNN && make clean && make
-  compile=$(./mnistCUDNN)
-  passed=$compile | tail -n 1
+  ./mnistCUDNN > execute.log
+  passed=$(cat execute.log | tail -n 1)
   if [ "$passed" = "Test passed!" ]; then
     echo "Tests for CUDNN Install has passed!"
   else
