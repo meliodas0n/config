@@ -40,6 +40,21 @@ verify_cudnn_install() {
   fi
 }
 
+python_setup() {
+  echo "Installing tensorflow"
+  pip3 install tensorflow[and-cuda]
+  echo "Installing torch"
+  pip3 install torch torchvision torchaudio
+  if [ $? -ne 0 ]; then
+    echo "Python package installation failed"
+    echo "Please do it manually"
+  else
+    echo "Python package installation completed"
+    echo "Calling python script to verify tensorflow/torch installation"
+    python3 verify_cuda_setup.py
+  fi
+}
+
 args=$1
 if [ $# -eq 0 ]; then
   echo "Starting CUDA/CUDNN Setup"
@@ -52,6 +67,9 @@ else
   if [[ $args -eq 1 ]]; then
     echo "Starting the test"
     verify_cudnn_install
+  elif [[ $args -eq 2 ]]; then
+    echo "Starting Python setup"
+    python_setup
   else
     echo "Unrecognized arg $arg"
     exit 1
