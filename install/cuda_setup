@@ -42,9 +42,17 @@ verify_cudnn_install() {
 
 python_setup() {
   echo "Installing tensorflow"
-  pip3 install tensorflow[and-cuda]
+   if [ $(pip3 list | grep tensorflow | wc -l) -ge 1 ]; then
+    echo "tensorflow already available, so skipping..."
+  else
+    pip3 install tensorflow[and-cuda]
+  fi
   echo "Installing torch"
-  pip3 install torch torchvision torchaudio
+  if [ $(pip3 list | grep torch | wc -l) -ge 1 ]; then
+    echo "torch already available, so skipping..."
+  else
+    pip3 install torch torchvision torchaudio
+  fi
   if [ $? -ne 0 ]; then
     echo "Python package installation failed"
     echo "Please do it manually"
