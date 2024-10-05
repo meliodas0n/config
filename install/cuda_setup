@@ -1,5 +1,36 @@
 #!/usr/bin/bash
 
+CUDNN_FILE="cudnn-linux-x86_64-8.9.7.29_cuda11-archive.tar.xz"
+
+cuda_install() {
+  echo "Cuda Installation Started"
+  wget https://developer.download.nvidia.com/compute/cuda/11.8.0/local_installers/cuda_11.8.0_520.61.05_linux.run
+  sudo sh cuda_11.8.0_520.61.05_linux.run
+  echo "Cuda Installation Completed"
+}
+
+cudnn_install() {
+  echo "Cudnn Installation Started"
+  echo "Please go to https://developer.nvidia.com/rdp/cudnn-archive and download cudnn 11.8(cudnn-linux-x86_64-8.9.7.29_cuda11-archive.tar.xz) manually and place it in $HOME/Downloads"
+  echo "If downloaded please press y"
+  read -p "Press [y] If download complete : " inp
+  if [ "$inp" = "y" ]; then
+    cd $HOME/Downloads
+    if [ -f $CUDNN_FILE ]; then
+      tar -xf cudnn-linux-x86_64-8.9.7.29_cuda11-archive.tar.xz
+      mv cudnn-linux-x86_64-8.9.7.29_cuda11-archive cudnn
+      sudo cp cudnn/include/cudnn*.h /usr/local/cuda-11.8/include
+      sudo cp -P cudnn/lib/libcudnn* /usr/local/cuda-11.8/lib64
+      sudo chmod a+r /usr/local/cuda-11.8/include/cudnn*.h /usr/local/cuda-11.8/lib64/libcudnn*
+      sudo apt-get update && sudo apt full-upgrade
+      echo "Cudnn Installation Completed"
+    else
+      echo "file $CUDNN_FILE not found!"
+      exit 1
+    fi
+  fi
+}
+
 cuda_install12() {
   wget https://developer.download.nvidia.com/compute/cuda/repos/wsl-ubuntu/x86_64/cuda-wsl-ubuntu.pin
   sudo mv cuda-wsl-ubuntu.pin /etc/apt/preferences.d/cuda-repository-pin-600
