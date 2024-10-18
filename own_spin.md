@@ -22,4 +22,6 @@
 sudo apt-get install/sudo pacman -S git, gcc, g++, python3.13, make, cmake, clangd, ssh
 ```
 
-## Ref to my previous i3 + Ubunut setup showcase on unix porn - https://www.reddit.com/r/unixporn/comments/1858mhp/i3_guess_v2_to_my_original/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
+## Ref to my previous i3 + Ubunut setup showcase on unix porn - https://www.reddit.com/r/unixporn/comments/1858mhp/i3_guess_v2_to_my_original/
+
+![alt text](unixporn_i3u.jpg)
