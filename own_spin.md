@@ -7,7 +7,7 @@ We can go Debian or Arch -
     i3 + nvim + vscode + polybar/i3status default + rofi + alacritty(with tmux) + c-tools + python-tools + cuda-tools + tensorflow + pytorch + spark
       -- Move to Hyprland once Wayland + WLROOTS is stabled on ubuntu ig ?
 
-      Ubuntu 24.04 onwards we have yaml setups - can use this for default ubuntu setup - have to find a reference
+    Ubuntu 24.04 onwards we have yaml setups - can use this for default ubuntu setup - have to find a reference
 
   Arch
   Hprland + polybar + rofi + alacritty(tmux choice)/kitty + nvim + vscode + c-tools + python-tools + cuda-tools + tensorflow + pytorch + spark
