@@ -1,11 +1,11 @@
 #!/usr/bin/bash
 
-set -e
+# set -e
 
 HADOOP_CONF=/opt/hadoop/etc/hadoop
 SPARK_VERSION=3.5.2
 JAVA_VERSION=1.8
-SCALA_VERSIOn=2.11.12
+SCALA_VERSION=2.11.12
 HADOOP_VERSION=3.4.0
 HIVE_VERSION=4.0.0
 POSTGRESQL_JAR_VERSION=42.7.4
@@ -289,6 +289,6 @@ spark_pyspark_install() {
 
 check_and_install_java
 check_and_install_scala
-hadoop_install
-hive_install
-spark_pyspark_install
+# hadoop_install
+# hive_install
+# spark_pyspark_install
