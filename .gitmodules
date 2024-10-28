@@ -1,3 +1,9 @@
 [submodule "nix"]
 	path = nix
 	url = git@github.com:meliodas0n/nix
+[submodule "nvim/lunarvim"]
+	path = nvim/lunarvim
+	url = git@github.com:meliodas0n/lunarvim.git
+[submodule "nvim/astrovim"]
+	path = nvim/astrovim
+	url = git@github.com:meliodas0n/astrovim
