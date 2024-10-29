@@ -2,7 +2,7 @@
 
 # set -e
 
-HADOOP_CONF=/opt/hadoop/etc/hadoop
+HADOOP_CONF=~/.local/opt/hadoop/etc/hadoop
 SPARK_VERSION=3.5.2
 JAVA_VERSION=1.8
 SCALA_VERSION=2.11.12
@@ -287,8 +287,11 @@ spark_pyspark_install() {
   echo "PySpark installation completed"
 }
 
-check_and_install_java
-check_and_install_scala
+# check_and_install_java
+# check_and_install_scala
 # hadoop_install
 # hive_install
 # spark_pyspark_install
+
+
+add_hive_hive_site_xml
