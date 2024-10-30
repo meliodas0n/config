@@ -82,6 +82,14 @@ add_hadoop_core_site_xml() {
     <name>yarn.nodemanager.aux-services.mapreduce_shuffle.class</name>
     <value>org.apache.hadoop.mapred.ShuffleHandler</value>
   </property>
+  <property>
+    <name>hadoop.proxyuser.server.hosts</name>
+    <value>*</value>
+  </property>
+  <property>
+    <name>hadoop.proxyuser.server.groups</name>
+    <value>*</value>
+  </property>
 </configuration>' > $HADOOP_CONF/core-site.xml
 }
 
@@ -140,17 +148,17 @@ add_hadoop_hdfs_site_xml() {
   <!-- Directories where the NameNode stores metadata and edits -->
   <property>
     <name>dfs.namenode.name.dir</name>
-    <value>file:///opt/data/hadoop/hdfs/namenode</value>
+    <value>/home/meliodas/.local/opt/data/hadoop/hdfs/namenode</value>
   </property>
   <!-- Directories where the DataNode stores blocks -->
   <property>
     <name>dfs.datanode.data.dir</name>
-    <value>file:///opt/data/hadoop/hdfs/datanode</value>
+    <value>/home/meliodas/.local/opt/data/hadoop/hdfs/datanode</value>
   </property>
   <!-- Namenode-specific directories for storing secondary Namenode checkpoints -->
   <property>
     <name>dfs.namenode.checkpoint.dir</name>
-    <value>file:///usr/local/hadoop/hdfs/namesecondary</value>
+    <value>/home/meliodas/.local/data/hadoop/hdfs/namesecondary</value>
   </property>
   <!-- Namenode checkpoint interval (seconds) -->
   <property>
@@ -195,9 +203,9 @@ hadoop_install() {
   tar -xvzf /tmp/hadoop-"$HADOOP_VERSION".tar.gz
   rm /tmp/hadoop-"$HADOOP_VERSION".tar.gz
   mv /tmp/hadoop-"$HADOOP_VERSION" $HOME/.local/opt/hadoop
-  sudo chmod 7777 -R /opt
-  exit
-  export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 >> /opt/hadoop/etc/hadoop/hadoop-env.sh
+  # sudo chmod 7777 -R /opt
+  # exit
+  # export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 >> /opt/hadoop/etc/hadoop/hadoop-env.sh
   ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa
   cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys && chmod 600 ~/.ssh/authorized_keys && chmod 700 ~/.ssh
   add_hadoop_core_site_xml
@@ -215,18 +223,18 @@ postgres_install() {
   sudo apt-get update && sudo apt dist-upgrade && sudo apt full-upgrade -y
   sudo apt-get install postgresql postgresql-contrib
   sudo -i -u postgres
-  """
-    CREATE USER hiveuser WITH LOGIN PASSWORD 'hive' CREATEDB;
-    CREATE DATABASE metastore_db;
-    GRANT ALL PRIVILEGES ON DATABASE metastore_db TO hiveuser;
-    CREATE USER meliodas WITH LOGIN PASSWORD 'kurama' CREATEDB;
-    CREATE DATABASE meliodas_db;
-    GRANT ALL PRIVILEGES ON DATABASE meliodas_db TO meliodas;
-    GRANT ALL PRIVILEGES ON DATABASE metastore_db TO meliodas;
-  """
-  # createuser hiveuser -P # password : hive
-  # createdb -O hiveuser metastore_db
-  # exit
+  # """
+  #   CREATE USER hiveuser WITH LOGIN PASSWORD 'hive' CREATEDB;
+  #   CREATE DATABASE metastore_db;
+  #   GRANT ALL PRIVILEGES ON DATABASE metastore_db TO hiveuser;
+  #   CREATE USER meliodas WITH LOGIN PASSWORD 'kurama' CREATEDB;
+  #   CREATE DATABASE meliodas_db;
+  #   GRANT ALL PRIVILEGES ON DATABASE meliodas_db TO meliodas;
+  #   GRANT ALL PRIVILEGES ON DATABASE metastore_db TO meliodas;
+  # """
+  createuser hiveuser -P # password : hive
+  createdb -O hiveuser metastore_db
+  exit
   sudo echo "local   all             hiveuser                                md5" >> /etc/postgresql/12/main/pg_hba.conf
   sudo systemctl restart postgresql
 }
@@ -266,6 +274,11 @@ add_hive_hive_site_xml() {
     <value>true</value>
     <description>Auto-create the schema on startup</description>
   </property>
+  <property>
+    <name>hive.server2.enable.doAs</name>
+    <value>false</value>
+    <description>Allows other users to connect</description>
+  </property>
 </configuration>' > $HIVE_HOME/conf/hive-site.xml
 }
 
@@ -279,8 +292,10 @@ hive_install() {
   add_hadoop_hdfs_site_xml
   sudo chmod 7777 -R /opt
   schematool -dbType postgres -initSchema
-  nohup hive --service metastore >> /opt/hive_logs/metastore.log &
-  nohup hive --service hiveserver2 >> /opt/hive_logs/hiveserver2.log &
+  nohup hive --service metastore >> ~/.local/opt/hive_logs/metastore.log &
+  nohup hive --service hiveserver2 >> ~/.local/opt/hive_logs/hiveserver2.log &
+  # connect using !connect jdbc:hive2://localhost:10000 default
+  
 }
 
 spark_pyspark_install() {
@@ -298,11 +313,12 @@ spark_pyspark_install() {
   echo "PySpark installation completed"
 }
 
-check_and_install_java
-check_and_install_scala
+# check_and_install_java
+# check_and_install_scala
 # hadoop_install
 # hive_install
 # spark_pyspark_install
-
-
-# add_hive_hive_site_xml
+add_hadoop_core_site_xml
+# add_hadoop_yarn_site_xml
+add_hive_hive_site_xml
+# add_hadoop_hdfs_site_xml
