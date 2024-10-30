@@ -3,11 +3,11 @@
 # set -e
 
 HADOOP_CONF=~/.local/opt/hadoop/etc/hadoop
-SPARK_VERSION=3.5.2
+SPARK_VERSION=3.5.3
 JAVA_VERSION=1.8
 SCALA_VERSION=2.11.12
 HADOOP_VERSION=3.4.0
-HIVE_VERSION=4.0.0
+HIVE_VERSION=4.0.1
 POSTGRESQL_JAR_VERSION=42.7.4
 
 check_and_install_java() {
@@ -179,20 +179,22 @@ add_hadoop_hdfs_site_xml() {
 hadoop_install() {
   echo "hadoop install, should be manual as I have no clue how to exeucte queries in a different userspace"
   sudo apt-get update && sudo apt dist-upgrade && sudo apt full-upgrade -y
-  sudo apt-get install ssh openssh-client openssh-server
+  # sudo apt-get install ssh openssh-client openssh-server
   # TODO: maybe we don't need a new user for hadoop
-  sudo adduser hadoop && su - hadoop # password : hadoop
-  ssh-keygen -t rsa
-  cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
-  chmod 640 ~/.ssh/authorized_keys
+  # sudo adduser hadoop && su - hadoop # password : hadoop
+  # ssh-keygen -t rsa
+  # cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+  # chmod 640 ~/.ssh/authorized_keys
   # check ssh to localhost
-  ssh localhost
-  exit
-  exit
-  sudo chmod 7777 -R /opt
-  su - hadoop
-  wget https://dlcdn.apache.org/hadoop/common/hadoop-"$HADOOP_VERSION"/hadoop-"$HADOOP_VERSION".tar.gz
-  tar -xvzf hadoop-"$HADOOP_VERSION".tar.gz && rm hadoop-"$HADOOP_VERSION".tar.gz && mv hadoop-"$HADOOP_VERSION" /opt/hadoop
+  # ssh localhost
+  # exit
+  # exit
+  # sudo chmod 7777 -R /opt
+  # su - hadoop
+  wget -P /tmp https://dlcdn.apache.org/hadoop/common/hadoop-"$HADOOP_VERSION"/hadoop-"$HADOOP_VERSION".tar.gz
+  tar -xvzf /tmp/hadoop-"$HADOOP_VERSION".tar.gz
+  rm /tmp/hadoop-"$HADOOP_VERSION".tar.gz
+  mv /tmp/hadoop-"$HADOOP_VERSION" $HOME/.local/opt/hadoop
   sudo chmod 7777 -R /opt
   exit
   export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 >> /opt/hadoop/etc/hadoop/hadoop-env.sh
@@ -239,7 +241,7 @@ add_hive_hive_site_xml() {
   if [ -f $HIVE_HOME/conf/hive-site.xml ]; then rm -rf $HIVE_HOME/conf/hive-site.xml; fi
   echo '<?xml version="1.0"?>
 <configuration>
-<property>
+  <property>
     <name>javax.jdo.option.ConnectionURL</name>
     <value>jdbc:postgresql://localhost:5432/metastore_db</value>
     <description>JDBC connect string for a JDBC metastore</description>
@@ -269,8 +271,8 @@ add_hive_hive_site_xml() {
 
 hive_install() {
   postgres_install
-  wget https://dlcdn.apache.org/hive/hive-"$HIVE_VERSION"/apache-hive-"$HIVE_VERSION"-bin.tar.gz
-  tar -xvf apache-hive-"$HIVE_VERSION"-bin.tar.gz && rm apache-hive-"$HIVE_VERSION"-bin.tar.gz && mv apache-hive-"$HIVE_VERSION"-bin /opt/hive
+  wget -P /tmp https://dlcdn.apache.org/hive/hive-"$HIVE_VERSION"/apache-hive-"$HIVE_VERSION"-bin.tar.gz
+  tar -xvf /tmp/apache-hive-"$HIVE_VERSION"-bin.tar.gz && rm /tmp/apache-hive-"$HIVE_VERSION"-bin.tar.gz && mv /tmp/apache-hive-"$HIVE_VERSION"-bin $HOME/.local/opt/hive
   sudo chmod 7777 -R /opt
   postgres_jar_install
   add_hive_hive_site_xml
@@ -287,7 +289,7 @@ spark_pyspark_install() {
   wget -P /tmp https://dlcdn.apache.org/spark/spark-"$SPARK_VERSION"/spark-"$SPARK_VERSION"-bin-hadoop3.tgz
   tar -xvzf /tmp/spark-"$SPARK_VERSION"-bin-hadoop3.tgz
   sudo chmod 7777 -R /opt
-  mv spark-"$SPARK_VERSION"-bin-hadoop3 /opt/spark
+  mv spark-"$SPARK_VERSION"-bin-hadoop3 $HOME/.local/opt/spark
   sudo chmod 7777 -R /opt
   echo "Spark installation completed"
   echo "PySpark installation started"
@@ -296,11 +298,11 @@ spark_pyspark_install() {
   echo "PySpark installation completed"
 }
 
-# check_and_install_java
-# check_and_install_scala
+check_and_install_java
+check_and_install_scala
 # hadoop_install
 # hive_install
 # spark_pyspark_install
 
 
-add_hive_hive_site_xml
+# add_hive_hive_site_xml
