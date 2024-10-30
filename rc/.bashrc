@@ -16,14 +16,14 @@ export PKG_CONFIG_PATH=/usr/share/pkgconfig:$PKG_CONFIG_PATH
 export PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig:$PKG_CONFIG_PATH
 export PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig
 export PATH=$HOME/.config/suckless/scripts:$PATH
-export SPARK_HOME=/opt/spark
+export SPARK_HOME=$HOME/.local/opt/spark
 export PATH=$PATH:$SPARK_HOME/bin:$SPARK_HOME/sbin
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
-export HADOOP_HOME=/opt/hadoop
+export HADOOP_HOME=$HOME/.local/opt/hadoop
 export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOME/lib/native
 export PATH=$PATH:$HADOOP_HOME/sbin:$HADOOP_HOME/bin
 export HADOOP_OPTS="-Djava.library.path=$HADOOP_HOME/lib/native"
-export HIVE_HOME=/opt/hive
+export HIVE_HOME=$HOME/.local/opt/hive
 export HIVE_CONF_DIR=$HIVE_HOME/conf
 export PATH=$HIVE_HOME/bin:$PATH
 export CLASSPATH=$CLASSPATH:$HADOOP_HOME/lib/*:.
@@ -48,6 +48,7 @@ alias gc="git commit -m"
 alias gp="git push"
 alias activate="source .venv/bin/activate"
 alias vim="nvim"
+alias hive="beeline -u jdbc:hive2://localhost:10000 default"
 # alias psql="sudo -i -u postgres psql -d meliodas"
 
 # If not running interactively, don't do anything
@@ -163,3 +164,7 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
