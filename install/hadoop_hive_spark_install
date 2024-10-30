@@ -213,9 +213,18 @@ postgres_install() {
   sudo apt-get update && sudo apt dist-upgrade && sudo apt full-upgrade -y
   sudo apt-get install postgresql postgresql-contrib
   sudo -i -u postgres
-  createuser hiveuser -P # password : hive
-  createdb -O hiveuser metastore_db
-  exit
+  """
+    CREATE USER hiveuser WITH LOGIN PASSWORD 'hive' CREATEDB;
+    CREATE DATABASE metastore_db;
+    GRANT ALL PRIVILEGES ON DATABASE metastore_db TO hiveuser;
+    CREATE USER meliodas WITH LOGIN PASSWORD 'kurama' CREATEDB;
+    CREATE DATABASE meliodas_db;
+    GRANT ALL PRIVILEGES ON DATABASE meliodas_db TO meliodas;
+    GRANT ALL PRIVILEGES ON DATABASE metastore_db TO meliodas;
+  """
+  # createuser hiveuser -P # password : hive
+  # createdb -O hiveuser metastore_db
+  # exit
   sudo echo "local   all             hiveuser                                md5" >> /etc/postgresql/12/main/pg_hba.conf
   sudo systemctl restart postgresql
 }
