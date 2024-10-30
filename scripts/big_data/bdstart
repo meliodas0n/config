@@ -3,8 +3,8 @@
 echo "starting hadoop and hive setup"
 start-dfs.sh
 start-yarn.sh
-echo "$(date)" >> /opt/setup/metastore.log
-nohup hive --service metastore > /opt/setup/metastore.log &
-echo "$(date)" >> /opt/setup/hiveserver2.log
-nohup hive --service hiveserver2 > /opt/setup/hiveserver2.log &
+echo "$(date)" >> $HOME/.local/opt/setup/metastore.log
+nohup hive --service metastore > $HOME/.local/opt/setup/metastore.log &
+echo "$(date)" >> $HOME/.local/opt/setup/hiveserver2.log
+nohup hive --service hiveserver2 > $HOME/.local/opt/setup/hiveserver2.log &
 echo "completed hadoop and hive setup"
