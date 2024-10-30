@@ -294,8 +294,7 @@ hive_install() {
   schematool -dbType postgres -initSchema
   nohup hive --service metastore >> ~/.local/opt/hive_logs/metastore.log &
   nohup hive --service hiveserver2 >> ~/.local/opt/hive_logs/hiveserver2.log &
-  # connect using !connect jdbc:hive2://localhost:10000 default
-  
+  # beeline -u jdbc:hive2://localhost:10000 default
 }
 
 spark_pyspark_install() {
