@@ -24,10 +24,10 @@ sudo apt-get install/sudo pacman -S git, gcc, g++, python3.13, make, cmake, clan
 
 ## Ref to my previous i3 + Ubuntu v2 setup showcase on unix porn - https://www.reddit.com/r/unixporn/comments/1858mhp/i3_guess_v2_to_my_original/
 
-![alt text](unixporn_i3u.jpg)
+![alt text](unixporn/unixporn_i3u.jpg)
 
 ## Ref to my previous i3 + Ubuntu v1 setup showcase on unix porn - https://www.reddit.com/r/unixporn/comments/13dmsfp/i3_my_first_rice_with_i3/
 
 #### dotfiles for this v1 ref -> https://github.com/meliodas0n/dotfiles
 
-![alt text](unixporn_i3arch.jpg)
+![alt text](unixporn/unixporn_i3arch.jpg)
