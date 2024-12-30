@@ -1,0 +1,54 @@
+#!/bin/env bash
+
+DBFARMDIR="$HOME/.local/dbfarm"
+
+echo "Monet Installation and setup"
+
+suite=$(lsb_release -cs)
+echo "Current suite is ${suite}"
+
+echo "Updating system"
+sudo apt-get update && sudo apt full-upgrade && sudo appt dist-upgrade -y
+echo "System update completed"
+
+echo "Adding monetdb.list to apt sources"
+echo "deb https://dev.monetdb.org/downloads/deb/ ${suite} monetdb
+deb-src https://dev.monetdb.org/downloads/deb/ ${suite} monetdb" | sudo tee /etc/apt/sources.list.d/monetdb.list > /dev/null
+echo "monetdb added to apt sources"
+
+echo "Downloading monet finger key"
+sudo wget --output-document=/etc/apt/trusted.gpg.d/monetdb.gpg https://dev.monetdb.org/downloads/MonetDB-GPG-KEY.gpg
+echo "monet finger key downloaded"
+
+echo "updating system with latest monet sources"
+sudo apt udpate
+echo "System update completed"
+
+echo "Installing MonetDB and Monet client"
+sudo apt install monetdb-sql monetdb-client
+echo "MonetDB and mclient installation completed"
+
+echo "Enabling system services for MonetDB"
+sudo systemctl enable monetdbd
+sudo systemctl start monetdbd
+echo -e "MonetDB services are up\nbelow is the status"
+sudo systemctl status monetdbd
+echo "MonentDB services are completed"
+
+echo "Adding $USER to MonetDB group"
+sudo usermod -a -G monetdb "$USER"
+echo "$USER added to monet group"
+
+echo "Server setup started"
+echo -e "user=monetdb\npassword=monetdb\nlanguage=sql" > ~/.monetdb
+
+if [ ! -d "$DBFARMDIR" ]; then mkdir -p "$DBFARMDIR"; fi
+
+monetdbd create "$DBFARMDIR"/testfarm
+monetdbd set port=54321 "$DBFARMDIR"/testfarm
+monetdbd start "$DBFARMDIR"/testfarm
+monetdb create testdb
+monetdb start testdb
+monetdb release testdb
+
+echo "Monet Setup Completed"
