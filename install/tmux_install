@@ -1,13 +1,12 @@
 #!/usr/bin/bash
 
-echo "installing tmux and tpm"
+tmux_install() {
+  echo "installing tmux and tpm"
+  sudo apt-get install tmux -y
+  rm -rf $HOME/.tmux/plugins/tpm
+  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+  cp $(dirname $0)/install/.tmux.conf ~/
+  echo "installation completed"
+}
 
-sudo apt-get update && sudo apt full-upgrade && sudo apt dist-upgrade
-
-sudo apt-get install tmux -y
-
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-
-cp .tmux.conf ~/
-
-echo "installation completed"
+tmux_install
