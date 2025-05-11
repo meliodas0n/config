@@ -1,8 +1,8 @@
-#!/bin/bash
+#!/bin/env bash
+set -e
+
+CONFIG_FOLDER=$HOM/config
 
 echo "Updating the System First"
-sudo apt-get update && sudo apt full-upgrade -y
-
-sudo apt-get install python3 python3-pip ruby-full 
-
-cd $HOME/config
+sudo apt-get update && sudo apt full-upgrade && sudo apt dist-upgrade -y
+echo "System upgrade completed"
