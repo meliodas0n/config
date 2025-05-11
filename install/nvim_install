@@ -3,10 +3,14 @@
 set -e
 
 nvim_install() {
-	curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
-	sudo rm -rf /opt/nvim
-	sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
+	tar_name="nvim-linux-x86_64.tar.gz"
+	wget -O /tmp/$tar_name https://github.com/neovim/neovim/releases/latest/download/$tar_name
+	sudo rm -rf /opt/$(echo $tar_name | cut -d '.' -f2)
+	sudo tar -C /opt -xzf /tmp/$tar_name
+	rm -rf /tmp/$tar_name
 }
+
+nvim_install
 
 # TODO: this is supposed to come from config = maybe I should vim configs as submodule
 # git clone git@github.com:meliodas0n/astrovim ~/.config/nvim
