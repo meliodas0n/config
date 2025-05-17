@@ -14,6 +14,7 @@ ubuntu_install() {
 
 arch_install() {
   echo "Arch install started $(date)"
+  echo ""
 }
 
 install() {
