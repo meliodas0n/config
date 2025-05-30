@@ -10,6 +10,10 @@
       ./hardware-configuration.nix
     ];
 
+  # auto system update
+  system.autoUpgrade.enable = true;
+  system.autoUpgrade.allowReboot = true;
+
   # Fonts for coding
   fonts.packages = with pkgs; [
     nerdfonts
@@ -22,11 +26,11 @@
   # bash for all
   users.defaultUserShell = pkgs.bash;
 
-  hardware.opengl = {
-    enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
-  };
+  # hardware.opengl = {
+    # enable = true;
+    # driSupport = true;
+    # driSupport32Bit = true;
+  # };
 
   services.xserver.videoDrivers = ["nvidia"];
 
@@ -41,10 +45,10 @@
 
   hardware.bluetooth = {
     enable = true;
-		powerOnBoot = true;
-	};
+    powerOnBoot = true;
+  };
 	
-	services.blueman.enable = true;
+  services.blueman.enable = true;
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -95,7 +99,7 @@
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  sound.enable = true;
+  # sound.enable = true;
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
@@ -104,7 +108,7 @@
     alsa.support32Bit = true;
     pulse.enable = true;
     # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
+    jack.enable = true;
 
     # use the example session manager (no others are packaged yet so this is enabled by default,
     # no need to redefine it in your config for now)
@@ -169,7 +173,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
   # necessary tools
-  wget curl git cmake meson gcc tmux google-chrome spotify alacritty discord
+  wget curl git cmake meson gcc tmux htop google-chrome spotify alacritty discord steam ranger
 
   # editors
   neovim vim vscode
@@ -178,10 +182,13 @@
   hyprpaper neofetch waybar cava rofi eww wofi dolphin cowsay
   
   # dev
-  rustup nodejs_22 python312 poetry docker postgresql spark hadoop jdk8
+  rustup nodejs_22 python313 poetry docker postgresql spark hadoop jdk8
   
   # gpu ML & DL
   cudatoolkit cudaPackages.cudnn linuxPackages.nvidia_x11 libGLU libGL xorg.libXi xorg.libXmu freeglut xorg.libXext xorg.libX11 xorg.libXv xorg.libXrandr zlib ncurses5 stdenv.cc binutils
+
+  # system packages
+  pavucontrol pamixer bluez bluez-tools
 
   # python packages
   (python313.withPackages (subpkgs: with subpkgs; [
@@ -214,7 +221,7 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "23.11"; # Did you read the comment?
+  system.stateVersion = "24.11"; # Did you read the comment?
 
   environment.shellAliases = {
     la = "ls -al";
@@ -223,14 +230,14 @@
     nixbuild = "sudo nixos-rebuild switch";
     nixclean = "sudo nix-collect-garbage -d";
     nixdel = "sudo nix-env --delete-generations old";
-    nixboot = "sudo /run/current-system/bin/switch-to-configuration boot";
+    nixboot = "sudo nixos-rebuild boot";
     p = "python3";
     pip = "pip3";
     activate = "source ~/.local/venv/bin/activate";
   };
 
   environment.variables = {
-    NPM_CONFIG_PREFIX=/home/meliodas/.npm-global;
+    # NPM_CONFIG_PREFIX=/home/meliodas/.npm-global;
     PIP_BREAK_SYSTEM_PACKAGES = "1";
   };
 }
