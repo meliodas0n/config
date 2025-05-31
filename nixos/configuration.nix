@@ -1,4 +1,4 @@
-# Edit this configuration file to define what should be installed on
+#  Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
@@ -20,12 +20,18 @@
     # (nerdfonts.override { fonts = ["DejaVuSansM" "MesloLG"]; })
   ];
 
+  # direnv
+  programs.direnv.enable = true;
+
   # hyprland
   programs.hyprland.enable = true;
   
   # bash for all
   users.defaultUserShell = pkgs.bash;
-
+  # bash customization
+  # programs.bash.promptInit = ''
+    # eval "$(${pkgs.starship}/bin/starship init bash)"
+  # '';
   # hardware.opengl = {
     # enable = true;
     # driSupport = true;
@@ -173,16 +179,22 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
   # necessary tools
-  wget curl git cmake meson gcc tmux htop google-chrome spotify alacritty discord steam ranger
+  wget curl git cmake meson gcc tmux htop ranger dolphin obsidian
+
+  # usage
+  google-chrome spotify alacritty discord xterm green-pdfviewer
 
   # editors
   neovim vim vscode
   
   # ricing
-  hyprpaper neofetch waybar cava rofi eww wofi dolphin cowsay
+  hyprpaper neofetch waybar cava rofi eww wofi dolphin cowsay swaybg
   
   # dev
-  rustup nodejs_22 python313 poetry docker postgresql spark hadoop jdk8
+  rustup nodejs_22 python3 poetry docker postgresql spark hadoop jdk8
+
+  # dev libraries
+  # libpq
   
   # gpu ML & DL
   cudatoolkit cudaPackages.cudnn linuxPackages.nvidia_x11 libGLU libGL xorg.libXi xorg.libXmu freeglut xorg.libXext xorg.libX11 xorg.libXv xorg.libXrandr zlib ncurses5 stdenv.cc binutils
@@ -191,10 +203,54 @@
   pavucontrol pamixer bluez bluez-tools
 
   # python packages
-  (python313.withPackages (subpkgs: with subpkgs; [
-    # pip virtualenv requests pandas numpy pyspark pytorch tensorflow django flask fastapi polars
+  (python3.withPackages (subpkgs: with subpkgs; [
+    pip 
+    virtualenv
+    mypy
+    requests
+    pandas
+    numpy 
+    pyspark
+    django
+    flask
+    polars
+    psycopg2
+    jupyterlab
+    pytorch 
+    # tensorflow
+    fastapi
   ]))
   ];
+
+  # jupyterlab systemd service setup
+  systemd.services.jupyterlab = {
+    description = "Jupyterlab service";
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+
+    serviceConfig = {
+      ExecStart = "${pkgs.python3.withPackages (ps: with ps; [ jupyterlab ])}/bin/jupyter lab --no-browser --ip=0.0.0.0 --port=8888 --NotebookApp.token='' --NotebookApp.password=''";
+      WorkingDirectory = "/home/meliodas";
+      User = "meliodas";
+      Restart = "always";
+      Environment = "PATH=/run/wrappers/bin:/home/your-username/.nix-profile/bin:/etc/profiles/per-user/your-username/bin:${pkgs.python3}/bin";
+    };
+  };
+
+  programs.obs-studio = {
+    enable = true;
+    plugins = with pkgs.obs-studio-plugins; [
+      wlrobs
+      obs-backgroundremoval
+      obs-pipewire-audio-capture
+    ];
+  };
+
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true;
+    dedicatedServer.openFirewall = true;
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -210,7 +266,7 @@
   services.openssh.enable = true;
 
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 57621 ];
+  networking.firewall.allowedTCPPorts = [ 57621 8888 ];
   networking.firewall.allowedUDPPorts = [ 5353 ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
