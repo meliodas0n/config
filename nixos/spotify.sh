@@ -1,14 +1,18 @@
 #!/usr/bin/env bash
 
+# TODO: If the usage of flatpak increase, please setup separate script to install that and probably automate it programmatically
+
+flatpak_ver="$(flatpak --version)"
+
 install_flatpak() {
   echo "Flatpak is already installed"
-  echo "Version: $(flatpak --version)"
+  echo "Version: $flatpak_ver"
   echo "Adding flatpak repo if not exists"
   flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
   echo "Flatpak is added, please reboot your system and run the script as './spotify.sh 2'"
 }
 
-if [ ! "$(flatpak --version)" ]; then
+if [ ! "$flatpak_ver" ]; then
   echo "flatpak is not installed, please use below instructions"
   echo "Go to your NixOS configuration add flatpak service"
   # I wish I could do this programmatically
