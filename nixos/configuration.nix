@@ -15,9 +15,23 @@
   system.autoUpgrade.allowReboot = true;
 
   # Fonts for coding
-  fonts.packages = with pkgs; [
-    nerdfonts
-    # (nerdfonts.override { fonts = ["DejaVuSansM" "MesloLG"]; })
+  fonts.packages = [
+    pkgs.nerd-fonts.caskaydia-cove
+    pkgs.nerd-fonts.caskaydia-mono
+    pkgs.nerd-fonts.commit-mono
+    pkgs.nerd-fonts.dejavu-sans-mono
+    pkgs.nerd-fonts.fira-code
+    pkgs.nerd-fonts.fira-mono
+    pkgs.nerd-fonts.geist-mono
+    pkgs.nerd-fonts.jetbrains-mono
+    pkgs.nerd-fonts.monaspace
+    pkgs.nerd-fonts.roboto-mono
+    pkgs.nerd-fonts.space-mono
+    pkgs.nerd-fonts.ubuntu
+    pkgs.nerd-fonts.ubuntu-mono
+    pkgs.nerd-fonts.ubuntu-sans
+    pkgs.nerd-fonts.victor-mono
+    pkgs.nerd-fonts.zed-mono
   ];
 
   # direnv
@@ -37,6 +51,20 @@
     # driSupport = true;
     # driSupport32Bit = true;
   # };
+
+  services.logind.extraConfig = ''
+    HandleLidSwitch=ignore
+    HandleLidSwitchExternalPower=ignore
+    HandleLidSwitchDocked=ignore
+  '';
+
+  services.flatpak.enable = true;
+
+  services.dbus.enable = true;
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
+  };
 
   services.xserver.videoDrivers = ["nvidia"];
 
@@ -106,7 +134,7 @@
 
   # Enable sound with pipewire.
   # sound.enable = true;
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -179,16 +207,18 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
   # necessary tools
-  wget curl git cmake meson gcc tmux htop ranger dolphin obsidian
+  wget curl git gnumake cmake meson gcc pkg-config zeromq czmq cppzmq
+
+  tmux htop ranger obsidian nautilus
 
   # usage
-  google-chrome spotify alacritty discord xterm green-pdfviewer
+  google-chrome alacritty discord xterm torrential vlc
 
   # editors
   neovim vim vscode
   
   # ricing
-  hyprpaper neofetch waybar cava rofi eww wofi dolphin cowsay swaybg
+  hyprpaper neofetch waybar cava rofi eww wofi cowsay swaybg
   
   # dev
   rustup nodejs_22 python3 poetry docker postgresql spark hadoop jdk8
@@ -204,7 +234,7 @@
 
   # python packages
   (python3.withPackages (subpkgs: with subpkgs; [
-    pip 
+    pip
     virtualenv
     mypy
     requests
@@ -217,8 +247,11 @@
     psycopg2
     jupyterlab
     pytorch 
-    # tensorflow
+    tensorflow
     fastapi
+    ipykernel
+    notebook
+    jupyter
   ]))
   ];
 
@@ -266,10 +299,10 @@
   services.openssh.enable = true;
 
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 57621 8888 ];
-  networking.firewall.allowedUDPPorts = [ 5353 ];
+  # networking.firewall.allowedTCPPorts = [ 57621 8888 ];
+  # networking.firewall.allowedUDPPorts = [ 5353 ];
   # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  networking.firewall.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -277,7 +310,7 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "24.11"; # Did you read the comment?
+  system.stateVersion = "25.05"; # Did you read the comment?
 
   environment.shellAliases = {
     la = "ls -al";
@@ -293,7 +326,7 @@
   };
 
   environment.variables = {
-    # NPM_CONFIG_PREFIX=/home/meliodas/.npm-global;
+    NPM_CONFIG_PREFIX = "$HOME/.npm-global";
     PIP_BREAK_SYSTEM_PACKAGES = "1";
   };
 }
